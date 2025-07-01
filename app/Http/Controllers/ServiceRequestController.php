@@ -15,7 +15,11 @@ class ServiceRequestController extends Controller
      */
     public function index()
     {
-        //
+        // Fetch all service requests with related user and service data
+        $serviceRequests = ServiceRequest::with('user', 'service')->get();
+
+        // Return the view with the service requests
+        return view('service.index', compact('serviceRequests'));
     }
 
     /**
@@ -57,7 +61,7 @@ class ServiceRequestController extends Controller
             }
         }
 
-        return redirect()->route('service-requests.index')->with('success', 'Service request created successfully.');
+        return redirect()->route('service-request.index')->with('success', 'Service request created successfully.');
     }
 
     /**
